@@ -1,37 +1,60 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Form, FormGroup, FormControl, Col, Checkbox, Button,
+  Form, FormGroup, FormControl, Col, Button,
 } from 'react-bootstrap';
 import DatePicker from 'react-16-bootstrap-date-picker';
+import { isEmpty } from 'lodash';
+import cookie from 'react-cookies';
+import { bindActionCreators } from 'redux';
 
 import './styles.css';
 import { translate } from 'react-i18next';
-import { registerUser } from '../../../actions/register';
+import { updateUser, deleteUser } from '../../../actions/userSettings';
 
-class RegisterComponent extends Component {
+class ProfileSettings extends Component {
   state = {
+    id: '',
     firstName: '',
     lastName: '',
     birthDay: '',
     email: '',
-    password: '',
-    confirmPassword: '',
+    dataFetch: false,
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.dataFetch && !isEmpty(nextProps.currentUser)) {
+      return {
+        id: nextProps.currentUser._id,
+        firstName: nextProps.currentUser.firstName,
+        lastName: nextProps.currentUser.lastName,
+        birthDay: nextProps.currentUser.birthDay,
+        email: nextProps.currentUser.email,
+        dataFetch: true,
+      };
+    }
+    return null;
   }
 
-  register = () => {
+  updateUser = () => {
     const {
-      firstName, lastName, birthDay, email, password, confirmPassword,
+      id, firstName, lastName, birthDay, email,
     } = this.state;
     const { history } = this.props;
-
-    if (password === confirmPassword) {
-      this.props.registerUser({
-        firstName, lastName, birthDay, email, password, history,
+    const token = cookie.load('userToken');
+    if (token) {
+      this.props.updateUser({
+        id, firstName, lastName, birthDay, email, history, token,
       });
+    }
+  }
+
+  deleteUser = () => {
+    const token = cookie.load('userToken');
+    if (token) {
+      this.props.deleteUser({ id: this.state.id, history: this.props.history });
     }
   }
 
@@ -47,7 +70,7 @@ class RegisterComponent extends Component {
 
   render() {
     const {
-      firstName, lastName, birthDay, email, password, confirmPassword,
+      firstName, lastName, birthDay, email,
     } = this.state;
     const { t } = this.props;
 
@@ -78,28 +101,15 @@ class RegisterComponent extends Component {
               <FormControl type="email" name={email} value={email} placeholder={t('auth.email')} onChange={e => this.handleChange('email', e.target.value)} />
             </Col>
           </FormGroup>
-          <FormGroup controlId="formHorizontalPassword" className="input_component">
-            <Col sm={2}>{t('auth.password')}</Col>
-            <Col sm={10}>
-              <FormControl type="password" name={password} value={password} placeholder={t('auth.password')} onChange={e => this.handleChange('password', e.target.value)} />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formHorizontalPassword" className="input_component">
-            <Col sm={2}>{t('auth.confirmPassword')}</Col>
-            <Col sm={10}>
-              <FormControl type="password" name={confirmPassword} value={confirmPassword} placeholder={t('auth.confirmPassword')} onChange={e => this.handleChange('confirmPassword', e.target.value)} />
-            </Col>
-          </FormGroup>
 
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Checkbox>Remember me</Checkbox>
+              <Button bsStyle="primary" bsSize="large" block onClick={() => this.updateUser()}>{t('user_profile.update')}</Button>
             </Col>
           </FormGroup>
-
           <FormGroup>
             <Col smOffset={2} sm={10}>
-              <Button bsStyle="primary" bsSize="large" block onClick={() => this.register()}>{t('navbar.register')}</Button>
+              <Button bsStyle="danger" bsSize="large" block onClick={() => this.deleteUser()}>{t('user_profile.delete')}</Button>
             </Col>
           </FormGroup>
         </Col>
@@ -108,17 +118,23 @@ class RegisterComponent extends Component {
   }
 }
 
-RegisterComponent.propTypes = {
+ProfileSettings.propTypes = {
   t: PropTypes.func.isRequired,
-  registerUser: PropTypes.func.isRequired,
   history: PropTypes.shape().isRequired,
+  updateUser: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = ({ auth: { currentUser } }) => ({
+  currentUser,
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    registerUser,
+    updateUser,
+    deleteUser,
   },
   dispatch,
 );
 
-export default withRouter(translate('common')(connect(null, mapDispatchToProps)(RegisterComponent)));
+export default withRouter(translate('common')(connect(mapStateToProps, mapDispatchToProps)(ProfileSettings)));

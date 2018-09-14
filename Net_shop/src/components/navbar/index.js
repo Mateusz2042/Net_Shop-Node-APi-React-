@@ -63,10 +63,6 @@ NavbarComponent.propTypes = {
   getCurrentUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ auth: { currentUser } }) => ({
-  currentUser,
-});
-
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
     getCurrentUser,
@@ -74,4 +70,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(
   dispatch,
 );
 
-export default translate('common')(connect(mapStateToProps, mapDispatchToProps)(NavbarComponent));
+export default translate('common')(connect(null, mapDispatchToProps)(NavbarComponent));

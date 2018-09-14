@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cookie from 'react-cookies';
 import { withRouter } from 'react-router-dom';
-import { NavDropdown, MenuItem } from 'react-bootstrap';
+import {
+  NavDropdown, MenuItem, Nav, NavItem,
+} from 'react-bootstrap';
 
 import './styles.css';
 import LogOut from '../../../assets/icons/app/logout.png';
@@ -22,14 +24,17 @@ class CurrentUser extends Component {
     const { t, currentUser } = this.props;
 
     return (
-      <NavDropdown eventKey={3} title={`${t('auth.welcome')} ${currentUser.firstName}!`} id="basic-nav-dropdown">
-        <MenuItem eventKey={3.1}>{t('auth.profile_settings')}</MenuItem>
-        <MenuItem divider />
-        <MenuItem className="logout" eventKey={3.2} onClick={() => this.logout()}>
-          {t('auth.logout')}
-          <img className="img_logout" id="logout" src={LogOut} alt="logout" />
-        </MenuItem>
-      </NavDropdown>
+      <Nav>
+        <NavItem eventKey={1} href="/add_announcement">{t('announcement.add_announcement')}</NavItem>
+        <NavDropdown eventKey={3} title={currentUser.firstName !== undefined && `${t('auth.welcome')} ${currentUser.firstName} !`} id="basic-nav-dropdown">
+          <MenuItem href="/profile_settings" eventKey={3.1}>{t('auth.profile_settings')}</MenuItem>
+          <MenuItem divider />
+          <MenuItem className="logout" eventKey={3.2} onClick={() => this.logout()}>
+            {t('auth.logout')}
+            <img className="img_logout" id="logout" src={LogOut} alt="logout" />
+          </MenuItem>
+        </NavDropdown>
+      </Nav>
     );
   }
 }

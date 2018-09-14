@@ -82,9 +82,16 @@ const Api = {
       .then(handleErrors)
       .then(successCallBack)
       .catch(errors => errorsHandling(errors, failureCallback)),
-  delete: (url, query, token) => (
-    fetch(getRequestInfo(url) + getQueryString(query), getRequestInit(query, 'DELETE', token))
-  ),
+  delete: (url, body = {}, token = '', successCallBack, failureCallback) =>
+    fetch(getRequestInfo(url), getRequestInit(body, 'DELETE', token))
+      .then(handleErrors)
+      .then(successCallBack)
+      .catch(errors => errorsHandling(errors, failureCallback)),
+  put: (url, body = {}, token = '', successCallBack, failureCallback) =>
+    fetch(getRequestInfo(url), getRequestInit(body, 'PUT', token))
+      .then(handleErrors)
+      .then(successCallBack)
+      .catch(errors => errorsHandling(errors, failureCallback)),
 };
 
 export default Api;

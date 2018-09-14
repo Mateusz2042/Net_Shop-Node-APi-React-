@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomeComponent from '../containers/home';
 import NavBar from '../components/navbar';
 import AuthScenes from './scenes/auth';
+import AnnouncementScenes from './scenes/announcement';
 
 const RouterComponent = () => (
   <Router>
@@ -11,6 +12,7 @@ const RouterComponent = () => (
       <NavBar />
       <Route exact path="/" component={HomeComponent} />
       {AuthScenes()}
+      {AnnouncementScenes()}
     </Fragment>
   </Router>
 );

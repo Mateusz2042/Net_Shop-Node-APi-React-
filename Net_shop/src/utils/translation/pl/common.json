@@ -14,5 +14,16 @@
     "welcome": "Witaj",
     "logout": "Wyloguj",
     "profile_settings": "Ustawienia profilu"
+  },
+  "user_profile": {
+    "update": "Zmień",
+    "delete": "Usuń"
+  },
+  "announcement": {
+    "add_announcement": "Dodaj ogłoszenie",
+    "name": "Nazwa produktu",
+    "description": "Opis",
+    "price": "Cena",
+    "add_pictures": "Dodaj zdjęcia"
   }
 }
