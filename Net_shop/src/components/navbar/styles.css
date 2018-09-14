@@ -1,60 +1,19 @@
-nav {
-  height: 70px;
-  background-image:linear-gradient(white, blue);
-  align-items: center;
+.container {
   display: flex;
-  flex: 1;
 }
 
-.links {
-    color: white;
-    font-size: 16px;
-    padding: 8px;
- }
-
- .links:hover {
-  color: white;
-  transform: scale(1.2);
- }
-
- .links:active {
-  color: #80ccff;
-  transform: scale(1.3);
- }
-
- .links:visited {
-  color: white;
- }
-
- .title {
-    justify-content: center;
-    display: flex;
-    flex: 3;
-}
-
- .div-links {
-   flex: 1;
-   position: absolute;
-   right: 25px;
-   display: flex;
-   flex-direction: row;
- }
-
- .div-languages {
-  flex: 1;
+.flags_container {
+  display: flex;
   position: absolute;
   left: 25px;
 }
 
-.languages:hover {
-  transform: scale(1.5);
-  cursor: pointer;
+.links_container {
+  display: flex;
+  position: absolute;
+  right: 25px;
 }
 
-.languages:active {
-  transform: scale(1.6);
-}
-
-.text_decorator {
-  text-decoration: none;
+.flag:hover {
+  transform: scale(1.2);
 }

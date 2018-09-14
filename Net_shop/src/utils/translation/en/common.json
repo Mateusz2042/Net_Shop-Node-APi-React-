@@ -11,6 +11,19 @@
     "email": "E-mail",
     "password": "Password",
     "confirmPassword": "Confirm password",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "logout": "Logout",
+    "profile_settings": "Profile's settings"
+  },
+  "user_profile": {
+    "update": "Update",
+    "delete": "Delete"
+  },
+  "announcement": {
+    "add_announcement": "Add an announcement",
+    "name": "Product's name",
+    "description": "Description",
+    "price": "Price",
+    "add_pictures": "Add pictures"
   }
 }

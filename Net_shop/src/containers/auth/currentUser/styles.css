@@ -1,0 +1,11 @@
+.img_logout {
+  transform: scale(0.6);
+  right: 35px;
+  display: flex;
+  position: absolute;
+}
+
+.dropdown-menu>li>a {
+  display: flex;
+  flex-direction: row;
+}
