@@ -1,0 +1,4 @@
+{
+  "connectionString": "mongodb://Mateusz2042:3vc8udqr@ds155352.mlab.com:55352/net_shop",
+  "secret": "secret"
+}

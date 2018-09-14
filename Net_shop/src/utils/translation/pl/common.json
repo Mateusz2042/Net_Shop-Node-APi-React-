@@ -1,0 +1,16 @@
+{
+  "navbar": {
+      "net_shop_title": "Sklep internetowy",
+      "login": "Zaloguj",
+      "register": "Zarejestruj"
+  },
+  "auth": {
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "birthDay": "Data urodzenia",
+    "email": "E-mail",
+    "password": "Hasło",
+    "confirmPassword": "Powtórz hasło",
+    "welcome": "Witaj"
+  }
+}

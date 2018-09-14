@@ -1,0 +1,18 @@
+.navTitle {
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.navTitle:hover {
+  color:  #e6f5ff;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.navTitle:active {
+  color: #80ccff;
+  font-size: 28px;
+  font-weight: bold;
+}

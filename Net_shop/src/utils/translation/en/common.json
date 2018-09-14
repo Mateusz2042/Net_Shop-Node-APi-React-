@@ -1,0 +1,16 @@
+{
+  "navbar": {
+      "net_shop_title": "Net Shop",
+      "login": "Login",
+      "register": "Register"
+  },
+  "auth": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "birthDay": "Birth day",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "welcome": "Welcome"
+  }
+}
