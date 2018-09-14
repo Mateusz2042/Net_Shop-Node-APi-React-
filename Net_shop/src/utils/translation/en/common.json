@@ -11,6 +11,8 @@
     "email": "E-mail",
     "password": "Password",
     "confirmPassword": "Confirm password",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "logout": "Logout",
+    "profile_settings": "Profile's settings"
   }
 }

@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
 import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  Nav, Navbar, NavItem,
+} from 'react-bootstrap';
 
 import './styles.css';
-import NavTitle from '../navTitle';
 import Polish from '../../assets/icons/flags/pl.png';
 import English from '../../assets/icons/flags/gb.png';
 import { getCurrentUser } from '../../actions/auth';
 import CurrentUserComponent from '../../containers/auth/currentUser';
 
-class Navbar extends Component {
+class NavbarComponent extends Component {
   componentDidMount() {
     this.getCurrentUser();
   }
@@ -29,40 +30,34 @@ class Navbar extends Component {
     const { t, i18n } = this.props;
 
     return (
-      <nav>
-        <div className="title">
-          <Link className="text_decorator" to="/"><NavTitle id="net_shop" title={t('navbar.net_shop_title')} htmlFor="net_shop" /></Link>
-        </div>
-        {
-          cookie.load('userToken')
-            ? <CurrentUserComponent />
-            : (
-              <div className="div-links">
-                <Link className="text_decorator" to="/login">
-                  <div className="links">
-                    {t('navbar.login')}
-                  </div>
-                </Link>
-                {'  '}
-                <Link className="text_decorator" to="/register">
-                  <div className="links">
-                    {t('navbar.register')}
-                  </div>
-                </Link>
-              </div>
-            )
-        }
-        <div className="div-languages">
-          <img src={Polish} alt="Polish" className="languages" onClick={() => i18n.changeLanguage('pl')} />
-          {' '}
-          <img src={English} alt="English" className="languages" onClick={() => i18n.changeLanguage('en')} />
-        </div>
-      </nav>
+      <Navbar className="nav_container">
+        <Nav className="flags_container">
+          <NavItem className="flag" eventKey={1}><img src={Polish} alt="Polish" onClick={() => i18n.changeLanguage('pl')} /></NavItem>
+          <NavItem className="flag" eventKey={2}><img src={English} alt="English" onClick={() => i18n.changeLanguage('en')} /></NavItem>
+        </Nav>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="/">{t('navbar.net_shop_title')}</a>
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav className="links_container">
+          {
+            cookie.load('userToken')
+              ? <CurrentUserComponent />
+              : (
+                <Fragment>
+                  <NavItem eventKey={1} href="/login">{t('navbar.login')}</NavItem>
+                  <NavItem eventKey={2} href="/register">{t('navbar.register')}</NavItem>
+                </Fragment>
+              )
+          }
+        </Nav>
+      </Navbar>
     );
   }
 }
 
-Navbar.propTypes = {
+NavbarComponent.propTypes = {
   t: PropTypes.func.isRequired,
   i18n: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getCurrentUser: PropTypes.func.isRequired,
@@ -79,4 +74,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(
   dispatch,
 );
 
-export default translate('common')(connect(mapStateToProps, mapDispatchToProps)(Navbar));
+export default translate('common')(connect(mapStateToProps, mapDispatchToProps)(NavbarComponent));
